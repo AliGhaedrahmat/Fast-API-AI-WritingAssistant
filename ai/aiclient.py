@@ -2,7 +2,6 @@ import os
 import openai
 import json
 from typing import List, Dict, Optional, Any
-from openai import openai_response
 
 class CostCalculator:
     @staticmethod
