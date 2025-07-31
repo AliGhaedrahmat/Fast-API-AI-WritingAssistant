@@ -25,8 +25,8 @@ config = load_config('config.json')
 
 model_name = config.get("model_name")
 open_ai_api_key =  config.get("api_key") # Fetch API key from environment variable
-cost_per_thousand_input = 0.002
-cost_per_thousand_output = 0.008
+cost_per_thousand_input = 0.0004
+cost_per_thousand_output = 0.0016
 
 model = Model(model_name, cost_per_thousand_input, cost_per_thousand_output)
 client = AIClient(model, open_ai_api_key)
