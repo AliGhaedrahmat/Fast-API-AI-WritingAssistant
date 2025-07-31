@@ -31,6 +31,7 @@ cost_per_thousand_output = 0.008
 model = Model(model_name, cost_per_thousand_input, cost_per_thousand_output)
 client = AIClient(model, open_ai_api_key)
 
+
 api_key = "test"
 
 engine = Engine(client, model)

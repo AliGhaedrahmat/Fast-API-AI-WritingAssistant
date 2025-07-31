@@ -3,6 +3,8 @@ import openai
 import json
 from typing import List, Dict, Optional, Any
 
+# # print the openai module version
+# print(f"OpenAI Version: {openai.__version__}")
 class CostCalculator:
     @staticmethod
     def calculate_cost(prompt_tokens: int, completion_tokens: int, cost_per_thousand_input: float, cost_per_thousand_output: float) -> float:
@@ -78,11 +80,11 @@ class Response:
 
     def __init__(self , model , response):
         self.model = model
-        arguments = response["choices"][0]["message"]["function_call"]["arguments"]
+        arguments = response.choices[0].message.function_call.arguments
         self.structured_arguments = json.loads(arguments)
-        usage = response.get("usage", {})
-        self.input_tokens = usage.get('prompt_tokens')
-        self.output_tokens = usage.get('completion_tokens')
+        usage = response.usage
+        self.input_tokens = usage.prompt_tokens
+        self.output_tokens = usage.completion_tokens
         self.cost = CostCalculator.calculate_cost(self.input_tokens , self.output_tokens , self.model.cost_per_thousand_input , self.model.cost_per_thousand_output)
 
     def get_dict(self): 
@@ -112,13 +114,16 @@ class AIClient:
         openai.api_key = self.api_key
 
     def chat(self , prompt: Prompt , function: Function , temperature=0.7 , max_tokens = 512): 
-        response = openai.ChatCompletion.create(
+        client = openai.OpenAI(
+            api_key=self.api_key
+        )
+        response = client.chat.completions.create(
         model=self.model.name,
         messages=prompt.get_messages(),
-        functions=[function.get_dict()],
         function_call= {"name": function.name} , 
+        functions=[function.get_dict()],
         temperature=temperature,
-        max_tokens=max_tokens,)
-        
+        max_tokens=max_tokens
+        )
+        # print(response)        
         return Response(self.model , response)
-    
