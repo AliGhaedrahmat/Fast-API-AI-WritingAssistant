@@ -7,8 +7,8 @@ repo_dir = "AI-WritingAssistant-API"  # Path to the cloned repository
 env_dir = "venv"  # Virtual environment directory
 
 # Step 1: Check if the repository exists (you manually cloned it)
-if not os.path.exists(repo_dir):
-    raise FileNotFoundError(f"The repository directory '{repo_dir}' does not exist. Please clone the repository manually.")
+# if not os.path.exists(repo_dir):
+#     raise FileNotFoundError(f"The repository directory '{repo_dir}' does not exist. Please clone the repository manually.")
 
 # Step 2: Create a virtual environment if it doesn't exist
 if not os.path.exists(env_dir):
