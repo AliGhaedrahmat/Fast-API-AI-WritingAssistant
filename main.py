@@ -74,6 +74,11 @@ async def http_exception_handler(request: Request, exc: HTTPException):
         status_code=exc.status_code,
         content={"status": "fail", "message": exc.detail}
     )
+    
+@app.get("/ping")
+async def ping(): 
+    return JSONResponse(content={"status": "healthy"}, status_code=200)
+    
 # MVP modules with ResponseModel
 @app.post("/grammar_assistance", summary="Fix grammar issues in text", tags=["Text Processing"])
 async def grammar_fix(request: TextRequest, custom_header: str = Depends(check_custom_header)):
