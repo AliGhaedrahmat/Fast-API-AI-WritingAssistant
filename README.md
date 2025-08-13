@@ -35,3 +35,9 @@ Unlock the power of AI with our open-source AI Writing Assistant API, designed t
 - `/textpersonalization`: Personalize content based on user preferences.
 - `/sentimentanalysis`: Analyze the sentiment of text.
 - `/emotionrecognition`: Recognize emotions in your text.
+
+
+## Acknowledgements
+
+- OpenAI for their GPT models.
+- [FastAPI] for building a fast and powerful API.
