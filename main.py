@@ -7,7 +7,6 @@ from fastapi import Request, HTTPException , Depends
 from typing import Any
 from fastapi.responses import JSONResponse
 import logging
-import os
 from logging.handlers import RotatingFileHandler
 
 # Set up logging with rotation
@@ -54,18 +53,11 @@ class ResponseModel(BaseModel):
     data: Any
     
 async def check_custom_header(request: Request):
-    # Extracting the custom header from the request
+    # todo : Implement proper authentication and authorization
     custom_header = request.headers.get("X-RapidAPI-Proxy-Secret")
-    
-    # If the custom header is missing, raise an error
-    if not custom_header:
-        raise HTTPException(status_code=400, detail="X-RapidAPI-Proxy-Secret is required")
-
-    # If needed, add more validation logic for the header value
-    if custom_header != "deb0f330-6e46-11f0-92f7-ffd2b05ef4b0":
-        raise HTTPException(status_code=403, detail="Invalid X-RapidAPI-Proxy-Secret value")
-
     return custom_header    
+
+
 
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
